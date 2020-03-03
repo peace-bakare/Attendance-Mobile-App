@@ -1,7 +1,29 @@
+import * as React from 'react';
 import React, { Component } from 'react';
 import { FlatList, Image, View, TouchableOpacity, StyleSheet, Text, TextInput } from 'react-native';
-//import { Icon } from 'react-native-elements';
+import { NavigationContainer} from '@react-navigation/native';
+import { createTopTabNavigator } from '@react-navigation/top-tabs';
 
+//import { Icon } from 'react-native-elements';
+function HomeScreen() {
+    return (
+        <View>
+            <Icon style={styles.iconStyle} name="baseline_list_black_18dp"></Icon>
+            <Text> List </Text>
+        </View>
+    );
+}
+
+function CalendarScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+      </View>
+    );
+}
+
+const Tab = createTopTabNavigator();     
+      
 class Application extends Component {
     state = {
 
@@ -16,10 +38,15 @@ class Application extends Component {
                     name="baseline_list_black_18dp">
                     </Icon>
                 </View>
-                <View style={styles.view2Style}>
 
-                </View>
-                <View style={styles.view3Style}>
+                <NavigationContainer>
+                    <Tab.Navigator>
+                        <Tab.Screen name="List" component={HomeScreen}/>
+                        <Tab.Screen name="Calendar" component={CalendarScreen}/>
+                    </Tab.Navigator>
+                </NavigationContainer>
+
+                <View style={styles.view2Style}>
                     <Image
                     style={styles.imageStyle}
                     source={requireNativeViewManager('./assets/avatar.png')}/>
@@ -29,7 +56,7 @@ class Application extends Component {
                 </View>
             </FlatList>
         )
-    }
+    } 
 }
 
 const styles = StyleSheet.create({
@@ -45,12 +72,14 @@ const styles = StyleSheet.create({
     },
 
     view2Style: {
-        
-    },
-
-    view3Style: {
         flex: 1,
         flexDirection: 'column',
+    },
+
+    viewFunction: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 
     imageStyle: {
